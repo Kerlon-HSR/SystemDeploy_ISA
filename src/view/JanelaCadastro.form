@@ -158,6 +158,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtUsuario">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jtUsuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jtId">
         </Component>

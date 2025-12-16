@@ -4,7 +4,7 @@
  */
 package view;
 
-import DAO.Conexao;
+import DAO.DBconexao;
 import java.sql.Connection;
 import DAO.FuncionarioDAO;
 import java.sql.SQLException;
@@ -61,6 +61,8 @@ public class JanelaCadastro extends javax.swing.JFrame {
         jLabel2.setText("Senha");
 
         jtSenha.addActionListener(this::jtSenhaActionPerformed);
+
+        jtUsuario.addActionListener(this::jtUsuarioActionPerformed);
 
         jLabel3.setText("Id");
 
@@ -164,11 +166,11 @@ public class JanelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        Funcionario funcionarioLucas = new Funcionario("Lucas", "54321");
+        Funcionario funcionarioLucas = new Funcionario("Kerlon", "1234");
         
         
         try {
-            Connection conexao = new Conexao().getConnection();
+            Connection conexao = new DBconexao().getConnection();
             FuncionarioDAO funcionariodao = new FuncionarioDAO(conexao);
             funcionariodao.insert(funcionarioLucas);
             
@@ -184,6 +186,10 @@ public class JanelaCadastro extends javax.swing.JFrame {
     private void jtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtSenhaActionPerformed
+
+    private void jtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtUsuarioActionPerformed
 
     /**
      * @param args the command line arguments

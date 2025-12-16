@@ -1,0 +1,4 @@
+# Credenciais do Banco de Dados Neon
+DB_URL=URL_banco_de_dados
+DB_USER=Seu_usuario
+DB_PASSWORD=Sua_senha
