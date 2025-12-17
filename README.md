@@ -1,8 +1,8 @@
 # Sistema desktop de gestão comercial em Java
-Aplicação completa desenvolvida em Java (Desktop/Swing/JavaFX) para gerenciamento de um sistema comercial. O programa inclui um módulo de Login e Autenticação de funcionários e funcionalidades CRUD (Criação, Leitura, Atualização e Deleção) para as entidades principais: Clientes, Produtos e Pedidos. A persistência de dados é realizada via JDBC em um banco de dados SQL.
+Aplicação completa desenvolvida em Java (Desktop/Swing/JavaFX) para gerenciamento de um sistema comercial. O programa inclui um módulo de Login e Autenticação de funcionários e funcionalidades CRUD (Creat, Read, Update e Delete) para as entidades principais: Clientes, Produtos e Pedidos. A persistência de dados é realizada via JDBC em um banco de dados SQL.
 
 # Diagrama de classes UML
-![Diagrama UML Completo](Umbrello_UML/Diagrama.png)
+![Diagrama UML Completo](Umbrello_UML/Diagrama_classes.svg)
 
 # Aprendizado
 Com este projeto, busco aprender sobre:
@@ -15,3 +15,5 @@ E melhorar meus conhecimentos sobre:
 # Ferramentas
 - Apache NetBeans IDE 28.
 - PostgreSQL.
+- Draw io.
+- Banco de dados gratuito da Neon (simulando um servidor SQL).
