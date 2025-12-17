@@ -31,7 +31,7 @@ public class FuncionarioDAO {
         statement.execute();
     }
 
-    public boolean existeNoBancoPorUsuarioESenha(Funcionario funcionario) throws SQLException {
+    public boolean buscarPorUsuarioESenha(Funcionario funcionario) throws SQLException {
         String sql = "select * from funcionario where usuario = ? and senha = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         
@@ -54,15 +54,7 @@ public class FuncionarioDAO {
         statement.setInt(3, funcionario.getId());
         statement.execute();
     }
-    
-    public void insertOrUpdate(Funcionario funcionario) throws SQLException {
-        if(funcionario.getId() > 0) {
-            update(funcionario);
-        } else {
-            insert(funcionario);
-        }
-    }
-    
+        
     public void delete(Funcionario funcionario) throws SQLException {
         String sql = "delete from funcionario where id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -80,7 +72,7 @@ public class FuncionarioDAO {
     }
 
     private ArrayList<Funcionario> pesquisa(PreparedStatement statement) throws SQLException {
-        ArrayList<Funcionario> funcionarios = new ArrayList<Funcionario>();
+        ArrayList<Funcionario> funcionarios = new ArrayList<>();
         
         statement.execute();
         ResultSet resultSet = statement.getResultSet();

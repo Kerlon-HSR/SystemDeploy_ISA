@@ -37,7 +37,7 @@ public class LoginController {
         Connection conexao = new DBconexao().getConnection();
         FuncionarioDAO funcionariodao = new FuncionarioDAO(conexao);
         
-        boolean existe = funcionariodao.existeNoBancoPorUsuarioESenha(funcionarioAutenticar);
+        boolean existe = funcionariodao.buscarPorUsuarioESenha(funcionarioAutenticar);
         
         // se existir, direciona para o menu
         if (existe) {
