@@ -4,19 +4,25 @@
  */
 package view;
 
+import controller.LoginController;
+import java.sql.SQLException;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Kerlon
  */
-public class JanelaLogin extends javax.swing.JFrame {
+public class LoginView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaLogin.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginView.class.getName());
+    private final LoginController controller;
 
     /**
      * Creates new form JanelaLogin
      */
-    public JanelaLogin() {
+    public LoginView() {
         initComponents();
+        controller = new LoginController(this);
     }
 
 
@@ -119,14 +125,17 @@ public class JanelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRegistrarActionPerformed
-        JanelaCadastro telaCadastro = new JanelaCadastro();
-        telaCadastro.setVisible(true);
+        controller.registrar();
+        
     }//GEN-LAST:event_btRegistrarActionPerformed
 
     private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
-        JanelaMenu telaMenu = new JanelaMenu();
-        telaMenu.setVisible(true);
-        this.dispose();
+        try {
+            controller.autenticar();
+        } catch (SQLException ex) {
+            System.getLogger(LoginView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
     }//GEN-LAST:event_btEntrarActionPerformed
 
     /**
@@ -151,8 +160,26 @@ public class JanelaLogin extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JanelaLogin().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new LoginView().setVisible(true));
     }
+
+    public JTextField getJtSenha() {
+        return jtSenha;
+    }
+
+    public void setJtSenha(JTextField jtSenha) {
+        this.jtSenha = jtSenha;
+    }
+
+    public JTextField getJtUsuario() {
+        return jtUsuario;
+    }
+
+    public void setJtUsuario(JTextField jtUsuario) {
+        this.jtUsuario = jtUsuario;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelar;
@@ -164,4 +191,6 @@ public class JanelaLogin extends javax.swing.JFrame {
     private javax.swing.JTextField jtSenha;
     private javax.swing.JTextField jtUsuario;
     // End of variables declaration//GEN-END:variables
+
+
 }

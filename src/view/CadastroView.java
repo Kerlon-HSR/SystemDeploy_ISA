@@ -4,27 +4,25 @@
  */
 package view;
 
-import DAO.DBconexao;
-import java.sql.Connection;
-import DAO.FuncionarioDAO;
-import java.sql.SQLException;
+import controller.CadastroController;
 import javax.swing.JOptionPane;
-import model.Funcionario;
-
+import javax.swing.JTextField;
 /**
  *
  * @author Kerlon
  */
 
-public class JanelaCadastro extends javax.swing.JFrame {
+public class CadastroView extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(JanelaCadastro.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(CadastroView.class.getName());
+    private final CadastroController controller;
 
     /**
      * Creates new form JanelaCadastro
      */
-    public JanelaCadastro() {
+    public CadastroView() {
         initComponents();
+        controller = new CadastroController(this);
     }
 
     /**
@@ -52,7 +50,7 @@ public class JanelaCadastro extends javax.swing.JFrame {
         jButton2.setText("Registrar");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
 
@@ -166,21 +164,8 @@ public class JanelaCadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_btCancelarActionPerformed
 
     private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
-        Funcionario funcionarioLucas = new Funcionario("Kerlon", "1234");
-        
-        
-        try {
-            Connection conexao = new DBconexao().getConnection();
-            FuncionarioDAO funcionariodao = new FuncionarioDAO(conexao);
-            funcionariodao.insert(funcionarioLucas);
-            
-        } catch (SQLException ex) {
-            System.getLogger(JanelaCadastro.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
-        
-        
-        JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso");
-        this.dispose();
+       controller.salvarUsuario();
+
     }//GEN-LAST:event_btCadastrarActionPerformed
 
     private void jtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtSenhaActionPerformed
@@ -213,8 +198,34 @@ public class JanelaCadastro extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new JanelaCadastro().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new CadastroView().setVisible(true));
     }
+
+    public JTextField getJtSenha() {
+        return jtSenha;
+    }
+
+    public void setJtSenha(JTextField jtSenha) {
+        this.jtSenha = jtSenha;
+    }
+
+    public JTextField getJtSenhaRepetida() {
+        return jtSenhaRepetida;
+    }
+
+    public void setJtSenhaRepetida(JTextField jtSenhaRepetida) {
+        this.jtSenhaRepetida = jtSenhaRepetida;
+    }
+
+    public JTextField getJtUsuario() {
+        return jtUsuario;
+    }
+
+    public void setJtUsuario(JTextField jtUsuario) {
+        this.jtUsuario = jtUsuario;
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCadastrar;

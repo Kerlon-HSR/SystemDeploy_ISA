@@ -10,17 +10,17 @@ package model;
  */
 public class Funcionario {
     private int id;
-    private String nome;
+    private String usuario;
     private String senha;
 
-    public Funcionario(int id, String nome, String senha) {
+    public Funcionario(int id, String usuario, String senha) {
         this.id = id;
-        this.nome = nome;
+        this.usuario = usuario;
         this.senha = senha;
     }
 
-    public Funcionario(String nome, String senha) {
-        this.nome = nome;
+    public Funcionario(String usuario, String senha) {
+        this.usuario = usuario;
         this.senha = senha;
     }
     
@@ -34,12 +34,12 @@ public class Funcionario {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void getUsuario(String nome) {
+        this.usuario = nome;
     }
 
     public String getSenha() {
