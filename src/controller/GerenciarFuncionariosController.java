@@ -36,7 +36,6 @@ public class GerenciarFuncionariosController {
         modelo.setNumRows(0);
         
         for (Funcionario f : listaFuncionarios) {
-            System.out.println(f.getUsuario());
             modelo.addRow(new Object[]{
                 f.getUsuario(),
                 f.getSenha(),
