@@ -21,29 +21,46 @@ public class MenuController {
     }
     
     public void mostrarGuia() {
-    for (javax.swing.JInternalFrame frame : view.getDesktopPane().getAllFrames()) {
+        for (javax.swing.JInternalFrame frame : view.getDesktopPane().getAllFrames()) {
         
-        // Verifica se é do tipo GuiaView
-        if (frame instanceof GuiaView) {
-            // Se encontrar, traz ela para a frente e foca nela
-            frame.toFront();
-            try {
-                frame.setSelected(true);
-            } catch (java.beans.PropertyVetoException e) {
-                e.printStackTrace();
+            // Verifica se é do tipo GuiaView
+            if (frame instanceof GuiaView) {
+                // Se encontrar, traz ela para a frente e foca nela
+                frame.toFront();
+                try {
+                    frame.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                    e.printStackTrace();
+                }
+                // Retorna imediatamente, impedindo a criação de uma nova janela
+                return; 
             }
-            // Retorna imediatamente, impedindo a criação de uma nova janela
-            return; 
         }
-    }
 
-    // Se o loop terminar sem encontrar a GuiaView, cria uma nova
-    GuiaView telaGuia = new GuiaView();
-    view.getDesktopPane().add(telaGuia);
-    telaGuia.setVisible(true);
+        // Se o loop terminar sem encontrar a GuiaView, cria uma nova
+        GuiaView telaGuia = new GuiaView();
+        view.getDesktopPane().add(telaGuia);
+        telaGuia.setVisible(true);
     }
     
     public void gerenciarFuncionarios() throws SQLException {
+        for (javax.swing.JInternalFrame frame : view.getDesktopPane().getAllFrames()) {
+        
+            // Verifica se é do tipo GerenciarFuncionariosView
+            if (frame instanceof GerenciarFuncionariosView) {
+                // Se encontrar, traz ela para a frente e foca nela
+                frame.toFront();
+                try {
+                    frame.setSelected(true);
+                } catch (java.beans.PropertyVetoException e) {
+                    e.printStackTrace();
+                }
+                // Retorna imediatamente, impedindo a criação de uma nova janela
+                return; 
+            }
+        }
+
+        // Se o loop terminar sem encontrar a GerenciarFuncionariosView, cria uma nova
         GerenciarFuncionariosView telaGerenciarFuncionarios = new GerenciarFuncionariosView();
         view.getDesktopPane().add(telaGerenciarFuncionarios);
         telaGerenciarFuncionarios.setVisible(true);

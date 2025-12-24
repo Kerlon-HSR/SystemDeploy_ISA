@@ -49,9 +49,9 @@ public class GuiaView extends javax.swing.JInternalFrame {
         setTitle("Guia do usuário");
         setMinimumSize(new java.awt.Dimension(202, 92));
 
-        jTabbedPane2.setFont(new java.awt.Font("sansserif", 1, 17)); // NOI18N
+        jTabbedPane2.setFont(new java.awt.Font("sansserif", 0, 17)); // NOI18N
 
-        tgTestarFuncionarioDAO.setFont(new java.awt.Font("sansserif", 0, 19)); // NOI18N
+        tgTestarFuncionarioDAO.setFont(new java.awt.Font("sansserif", 0, 17)); // NOI18N
         tgTestarFuncionarioDAO.setText("Testar funcionario DAO");
         tgTestarFuncionarioDAO.addActionListener(this::tgTestarFuncionarioDAOActionPerformed);
 
@@ -65,14 +65,14 @@ public class GuiaView extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(tgTestarFuncionarioDAO)
-                .addGap(0, 336, Short.MAX_VALUE))
+                .addGap(0, 338, Short.MAX_VALUE))
         );
 
         jScrollPane3.setViewportView(jPanel2);
 
         txtDescricao.setEditable(false);
         txtDescricao.setColumns(20);
-        txtDescricao.setFont(new java.awt.Font("sansserif", 0, 20)); // NOI18N
+        txtDescricao.setFont(new java.awt.Font("sansserif", 0, 17)); // NOI18N
         txtDescricao.setLineWrap(true);
         txtDescricao.setRows(5);
         txtDescricao.setWrapStyleWord(true);
@@ -89,8 +89,8 @@ public class GuiaView extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -105,7 +105,7 @@ public class GuiaView extends javax.swing.JInternalFrame {
 
         txtDescricao1.setEditable(false);
         txtDescricao1.setColumns(20);
-        txtDescricao1.setFont(new java.awt.Font("sansserif", 0, 22)); // NOI18N
+        txtDescricao1.setFont(new java.awt.Font("sansserif", 0, 17)); // NOI18N
         txtDescricao1.setLineWrap(true);
         txtDescricao1.setRows(5);
         txtDescricao1.setText("Versão: alpha 0.1\nGitHub: https://github.com/Kerlon-HSR/SystemDeploy_ISA");
