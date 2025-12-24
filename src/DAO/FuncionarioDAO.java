@@ -21,80 +21,116 @@ public class FuncionarioDAO {
         this.connection = connection;
     }
     
-    public void insert(Funcionario funcionario) throws SQLException {
+    public Funcionario insert(Funcionario funcionario) throws SQLException {
         String sql = "insert into funcionario (usuario, senha) values (?, ?); ";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        
-        // Proteção contra SQL inject
-        statement.setString(1, funcionario.getUsuario());
-        statement.setString(2, funcionario.getSenha());
-        statement.execute();
+
+        try (PreparedStatement statement = connection.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
+            // Proteção contra SQL inject
+            statement.setString(1, funcionario.getUsuario());
+            statement.setString(2, funcionario.getSenha());
+            statement.execute();
+            
+            // Recuperar o ID gerado pelo Banco de Dados
+            try(ResultSet resultSet = statement.getGeneratedKeys()) {
+            
+                if (resultSet.next()) {
+                    // O primeiro campo do ResultSet de chaves geradas é o ID
+                   int id = resultSet.getInt(1);
+                    funcionario.setId(id);
+                }
+            }
+        }
+    
+        return funcionario;
     }
 
     public boolean buscarPorUsuarioESenha(Funcionario funcionario) throws SQLException {
         String sql = "select * from funcionario where usuario = ? and senha = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+    
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, funcionario.getUsuario());
+            statement.setString(2, funcionario.getSenha());
         
-        // Proteção contra SQL inject
-        statement.setString(1, funcionario.getUsuario());
-        statement.setString(2, funcionario.getSenha());
-        statement.execute();
-        
-        ResultSet resultSet = statement.getResultSet();
-        return resultSet.next();
+            
+            try (ResultSet resultSet = statement.executeQuery()) {
+                return resultSet.next(); // Retorna true se encontrar o usuário
+            }
+        }
     }
     
     public void update(Funcionario funcionario) throws SQLException {
         String sql = "update funcionario set usuario = ?, senha = ? where id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+
         
-        // Proteção contra SQL inject
-        statement.setString(1, funcionario.getUsuario());
-        statement.setString(2, funcionario.getSenha());
-        statement.setInt(3, funcionario.getId());
-        statement.execute();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Proteção contra SQL inject
+            statement.setString(1, funcionario.getUsuario());
+            statement.setString(2, funcionario.getSenha());
+            statement.setInt(3, funcionario.getId());
+            statement.execute();
+        }
     }
         
     public void delete(Funcionario funcionario) throws SQLException {
         String sql = "delete from funcionario where id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+
         
-        // Proteção contra SQL inject
-        statement.setInt(1, funcionario.getId());
-        statement.execute();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            // Proteção contra SQL inject
+            statement.setInt(1, funcionario.getId());
+            statement.execute();
+        }
     }
     
     public ArrayList<Funcionario> buscarPorTodos() throws SQLException {
         String sql = "select * from funcionario";
-        PreparedStatement statement = connection.prepareStatement(sql); 
-        
-        return pesquisa(statement);
+        try (PreparedStatement statement = connection.prepareStatement(sql);) {
+            return pesquisa(statement);
+    
+        }
     }
-
+        
     private ArrayList<Funcionario> pesquisa(PreparedStatement statement) throws SQLException {
         ArrayList<Funcionario> funcionarios = new ArrayList<>();
         
-        statement.execute();
-        ResultSet resultSet = statement.getResultSet();
-        
-        while (resultSet.next()) {
-            int id = resultSet.getInt("id");
-            String usuario = resultSet.getString("usuario");
-            String senha = resultSet.getString("senha");
-            
-            Funcionario funcionarioComDadosDoBanco = new Funcionario(id, usuario, senha);
-            funcionarios.add(funcionarioComDadosDoBanco);
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String usuario = resultSet.getString("usuario");
+                String senha = resultSet.getString("senha");
+                
+                Funcionario funcionarioComDadosDoBanco = new Funcionario(id, usuario, senha);
+                funcionarios.add(funcionarioComDadosDoBanco);
+            }
         }
-        
         return funcionarios;
     }
 
     public Funcionario BuscarPorId(Funcionario funcionario) throws SQLException {
         String sql = "select * from funcionario where id = ?";
-        PreparedStatement statement = connection.prepareStatement(sql); 
-    
-        statement.setInt(1, funcionario.getId());
+        ArrayList<Funcionario> resultado;
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, funcionario.getId());
+            resultado = pesquisa(statement);
+        }
         
-        return pesquisa(statement).get(0);
+        // verifica se retornou algo
+        if (!resultado.isEmpty()) {
+            return resultado.get(0);
+        }
+    
+        // Se não achou ninguém, retorna null
+        return null;
+    }
+    
+    public ArrayList<Funcionario> buscarPorUsuarios(String nomeFiltro) throws SQLException {
+        String sql = "select * from funcionario where usuario LIKE ?";
+        
+        try(PreparedStatement statement = connection.prepareStatement(sql)) {
+        
+            statement.setString(1, "%" + nomeFiltro + "%");
+        
+            return pesquisa(statement);
+        }
     }
 }

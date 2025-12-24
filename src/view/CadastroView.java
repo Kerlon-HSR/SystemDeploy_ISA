@@ -5,7 +5,6 @@
 package view;
 
 import controller.CadastroController;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *

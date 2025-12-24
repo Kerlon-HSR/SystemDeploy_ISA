@@ -3,18 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/MDIApplication.java to edit this template
  */
 package view;
+
+import controller.MenuController;
+import debug.Debugger;
+import java.sql.SQLException;
+import javax.swing.JDesktopPane;
 /**
  *
  * @author Kerlon
  */
 public class MenuView extends javax.swing.JFrame {
+    private final MenuController controller;
+    private final Debugger debug;
     /**
      * Creates new form JanelaMenu
      */
-    // ATRIBUTO ESSENCIAL: A Área de Trabalho
     
     public MenuView() {
-        initComponents();
+    initComponents();
+    setExtendedState(MAXIMIZED_BOTH); // Garante a tela cheia
+    
+    // Organiza o layout para o desktopPane ser o painel principal
+    getContentPane().setLayout(new java.awt.BorderLayout());
+    getContentPane().add(desktopPane, java.awt.BorderLayout.CENTER);
+    
+    controller = new MenuController(this);
+    debug = new Debugger(this);
     }
 
 
@@ -27,6 +41,7 @@ public class MenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu3 = new javax.swing.JMenu();
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
@@ -41,9 +56,21 @@ public class MenuView extends javax.swing.JFrame {
         openMenuItem2 = new javax.swing.JMenuItem();
         saveMenuItem2 = new javax.swing.JMenuItem();
         saveAsMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenu3.setText("jMenu3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        desktopPane.setName(""); // NOI18N
+        desktopPane.setPreferredSize(new java.awt.Dimension(6, 6));
+
+        menuBar.setFont(new java.awt.Font("sansserif", 3, 20)); // NOI18N
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Adicionar..");
@@ -102,7 +129,28 @@ public class MenuView extends javax.swing.JFrame {
 
         menuBar.add(helpMenu);
 
+        jMenu4.setText("Funcionários");
+
+        jMenuItem3.setText("Gerenciar");
+        jMenuItem3.addActionListener(this::jMenuItem3ActionPerformed);
+        jMenu4.add(jMenuItem3);
+
+        menuBar.add(jMenu4);
+
+        jMenu2.setText("Debug");
+
+        jMenuItem1.setText("Testar funcionario DAO");
+        jMenuItem1.addActionListener(this::jMenuItem1ActionPerformed);
+        jMenu2.add(jMenuItem1);
+
+        menuBar.add(jMenu2);
+
         jMenu1.setText("Ajuda (?)");
+
+        jMenuItem2.setText("Guia do usuário");
+        jMenuItem2.addActionListener(this::jMenuItem2ActionPerformed);
+        jMenu1.add(jMenuItem2);
+
         menuBar.add(jMenu1);
 
         setJMenuBar(menuBar);
@@ -111,15 +159,17 @@ public class MenuView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 907, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(desktopPane, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -148,6 +198,22 @@ public class MenuView extends javax.swing.JFrame {
     private void openMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItem2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_openMenuItem2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        debug.testarFuncionarioDAO();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        controller.mostrarGuia();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        try {
+            controller.gerenciarFuncionarios();
+        } catch (SQLException ex) {
+            System.getLogger(MenuView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +250,16 @@ public class MenuView extends javax.swing.JFrame {
             }
         });
     }
+
+    public JDesktopPane getDesktopPane() {
+        return desktopPane;
+    }
+
+    public void setDesktopPane(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
+    }
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
@@ -191,6 +267,12 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JMenuItem openMenuItem1;
